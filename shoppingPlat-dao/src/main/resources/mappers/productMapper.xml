@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ProductDao">
+    <select id="getAll" resultType="com.entity.ProductEntity">
+        select pro_id,pro_code,pro_name,pro_iPrice,pro_discount,
+        pro_Desc,pro_allSaleNum,pro_num from person_pro order by pro_id
+    </select>
+
+
+    <resultMap id="getProductByChildIdResultMap" type="com.entity.ProductEntity">
+        <id column="pro_id" property="pro_id"></id>
+        <result column="pro_name" property="pro_name"/>
+        <result column="pro_discount" property="pro_discount"/>
+        <result column="child_id" property="child_id"/>
+
+        <result column="child_name" property="child_name"/>
+
+        <result column="img_path" property="img_path"/>
+    </resultMap>
+    <select id="getByCateId" resultMap="getProductByChildIdResultMap">
+        select * from person_pro p
+         join person_child_cate c on p.child_id = c.child_id
+         join person_img i on p.pro_id = i.pro_id where c.child_id = #{child_id}
+          order by p.pro_id
+    </select>
+
+
+    <resultMap id="getByProductIdResultMap" type="com.entity.ProductEntity">
+        <id column="pro_id" property="pro_id"></id>
+        <result column="pro_name" property="pro_name"/>
+        <result column="pro_discount" property="pro_discount"/>
+        <result column="pro_iPrice" property="pro_iPrice"/>
+        <result column="pro_allSaleNum" property="pro_allSaleNum"/>
+        <result column="pro_num" property="pro_num"/>
+        <result column="pro_Desc" property="pro_Desc"/>
+        <result column="child_id" property="child_id"/>
+
+        <result column="info_id" property="information.info_id"/>
+        <result column="info_code" property="information.info_code"/>
+        <result column="factory_name" property="information.factory_name"/>
+        <result column="factory_address" property="information.factory_address"/>
+        <result column="factory_phone" property="information.factory_phone"/>
+        <result column="product_time" property="information.product_time"/>
+        <result column="keep_time" property="information.keep_time"/>
+        <result column="delivery_address" property="information.delivery_address"/>
+
+    </resultMap>
+
+    <select id="getByMyId" resultMap="getByProductIdResultMap">
+        select p.pro_id,p.pro_code,p.pro_name,p.pro_iPrice,p.pro_discount,p.pro_Desc,
+        p.pro_allSaleNum,p.pro_num,f.info_id,f.info_code,f.factory_name,
+        f.factory_address,f.factory_phone,f.product_time,f.keep_time,
+        f.delivery_address from person_pro p
+         join person_information f on p.pro_id = f.pro_id
+         where p.pro_id = #{pro_id }
+    </select>
+
+    <select id="getMonthSale" resultType="com.entity.ProductEntity">
+
+    </select>
+
+    <update id="updateSaleNum">
+        update person_pro set pro_allSaleNum=#{pro_allSaleNum} where pro_id=#{pro_id}
+    </update>
+
+
+</mapper>

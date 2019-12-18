@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ReceiptDao">
+    <insert id="insert">
+        insert into person_receipt(receipt_name, receipt_phone, province_id, city_id,
+         county_id,receipt_detail ,receipt_bit,user_id) values(#{name},#{phone},#{province},#{city},#{county},
+         #{status})
+    </insert>
+
+    <update id="update">
+        update person_receipt set receipt_bit=#{status} where receipt_id=#{id}
+    </update>
+
+    <select id="getAll" resultType="com.entity.ReceiptEntity">
+        select receipt_id,receipt_name, receipt_phone, province_id, city_id,
+       county_id, receipt_detail, receipt_bit from person_receipt
+        where user_id=#{uid}
+    </select>
+
+    <select id="getById" resultType="com.entity.ReceiptEntity">
+        select receipt_id,receipt_name, receipt_phone, province_id, city_id,
+       county_id, receipt_detail, receipt_bit from person_receipt
+        where receipt_id=#{rid} and user_id=#{uid}
+    </select>
+</mapper>

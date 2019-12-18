@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.InformationDao">
+    <select id="getById" resultType="com.entity.InformationEntity">
+        select info_id,info_code,factory_name,factory_address,factory_phone,
+        product_time,keep_time,delivery_address from person_information
+        where pro_id=#{pro_id}
+    </select>
+</mapper>
