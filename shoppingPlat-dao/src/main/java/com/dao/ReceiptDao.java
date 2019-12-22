@@ -9,7 +9,7 @@ import java.util.List;
  * @author lzn
  */
 public interface ReceiptDao {
-    ReceiptEntity insert(ReceiptEntity receiptEntity);
+    void insert(ReceiptEntity receiptEntity);
 
     void update(@Param("status") int status,@Param("id") int id);
 

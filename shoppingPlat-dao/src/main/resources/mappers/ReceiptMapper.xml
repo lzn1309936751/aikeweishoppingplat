@@ -5,8 +5,9 @@
 <mapper namespace="com.dao.ReceiptDao">
     <insert id="insert">
         insert into person_receipt(receipt_name, receipt_phone, province_id, city_id,
-         county_id,receipt_detail ,receipt_bit,user_id) values(#{name},#{phone},#{province},#{city},#{county},
-         #{status})
+         county_id,receipt_detail ,receipt_bit,user_id)
+          values(#{receipt_name},#{receipt_phone},#{province_id},#{city_id},
+          #{county_id},#{receipt_detail},#{receipt_bit},#{user_id})
     </insert>
 
     <update id="update">

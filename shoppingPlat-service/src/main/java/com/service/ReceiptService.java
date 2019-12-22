@@ -16,8 +16,8 @@ public class ReceiptService {
     @Autowired
     private ReceiptDao dao;
 
-    public ReceiptEntity insert(ReceiptEntity receiptEntity) {
-        return dao.insert(receiptEntity);
+    public void insert(ReceiptEntity receiptEntity) {
+         dao.insert(receiptEntity);
     }
 
     public void update(int status, int id) {

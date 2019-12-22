@@ -7,7 +7,7 @@ import lombok.Data;
  */
 @Data
 public class AddressEntity {
-    Integer address_id;
+    String address_id;
     String address_name;
     String parent_id;
 }

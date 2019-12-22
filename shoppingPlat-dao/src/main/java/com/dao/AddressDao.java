@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.entity.AddressEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -8,5 +9,12 @@ import java.util.List;
  * @author lzn
  */
 public interface AddressDao {
-    List<AddressEntity> getAll();
+    List<AddressEntity> getProvince(@Param("province") String parent_id);
+
+    List<AddressEntity> getCity(@Param("city") String parent_id);
+
+    List<AddressEntity> getCount(@Param("count")String parent_id);
+
+    AddressEntity getAddressName(@Param("address_id") String address_id);
+
 }

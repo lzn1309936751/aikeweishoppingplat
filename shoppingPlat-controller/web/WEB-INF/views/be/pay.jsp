@@ -49,7 +49,9 @@
             <div class="menu-hd"><a id="mc-menu-hd" href="/showMyCart" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
         </div>
         <div class="topMessage favorite">
-            <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+            <div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a>
+            </div>
+        </div>
     </ul>
 </div>
 
@@ -126,16 +128,17 @@
         
         <script>
             $(function () {
+                //获得选中的收货地址
                 $(".getSelectId").click(function () {
-                    alert(0)
                     var id=$(".getById").val();
-                    alert(id)
                     $.ajax({
                         url:"/getReceiptUser",
                         method:"post",
                         data:{id:id},
                         dataType:"json",
                         success:function(data){
+                            $("#deliveryTo").html("");
+                            $("#deliverUser").html("");
                             var html="";
                             html+="<span class='province'>"+data.data.province_id+"</span>";
                             html+="<span class='city'>"+data.data.city_id+"</span>";
@@ -148,7 +151,24 @@
                             $("#deliverUser").append(html2);
                         }
                     })
-                })
+                });
+
+                // $(".commitPay").click(function () {
+                //     $.ajax({
+                //         url:"/commitPay",
+                //         method:"post",
+                //         data:{id:id},
+                //         dataType:"json",
+                //         success:function(data){
+                //             if(data=='no'){
+                //                 location.href="/failPay";
+                //             }else {
+                //                 location.href="/successPay";
+                //             }
+                //         }
+                //     })
+                // });
+
             })
         </script>
         
@@ -320,7 +340,7 @@
 
                         <div id="holyshit269" class="submitOrder">
                             <div class="go-btn-wrap">
-                                <a id="J_Go" href="success.html" class="btn-go" tabindex="0" title="点击此按钮，提交订单">提交订单</a>
+                                <a id="J_Go" href="/alipay" class="btn-go commitPay" tabindex="0" title="点击此按钮，提交订单">提交订单</a>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -368,31 +388,31 @@
             <div class="am-form-group">
                 <label for="user-name" class="am-form-label">收货人</label>
                 <div class="am-form-content">
-                    <input type="text" id="user-name" placeholder="收货人">
+                    <input type="text" id="user-name" class="txtReceiptPerson" placeholder="收货人">
                 </div>
             </div>
 
             <div class="am-form-group">
                 <label for="user-phone" class="am-form-label">手机号码</label>
                 <div class="am-form-content">
-                    <input id="user-phone" placeholder="手机号必填" type="email">
+                    <input id="user-phone" class="txtReceiptPhone" placeholder="手机号必填" type="email">
                 </div>
             </div>
 
             <div class="am-form-group">
                 <label for="user-phone" class="am-form-label">所在地</label>
                 <div class="am-form-content address">
-                    <select data-am-selected>
-                        <option value="a">浙江省</option>
-                        <option value="b">湖北省</option>
+                    <select data-am-selected id="province">
+                        <option value='-1'>请选择省份</option>
+
                     </select>
-                    <select data-am-selected>
-                        <option value="a">温州市</option>
-                        <option value="b">武汉市</option>
+                    <select data-am-selected id="city">
+                        <option value="-1">请选择城市</option>
+
                     </select>
-                    <select data-am-selected>
-                        <option value="a">瑞安区</option>
-                        <option value="b">洪山区</option>
+                    <select data-am-selected size="1" id="count">
+                        <option value="-1">请选择县区</option>
+
                     </select>
                 </div>
             </div>
@@ -400,28 +420,109 @@
             <div class="am-form-group">
                 <label for="user-intro" class="am-form-label">详细地址</label>
                 <div class="am-form-content">
-                    <textarea class="" rows="3" id="user-intro" placeholder="输入详细地址"></textarea>
+                    <textarea class="txtReceiptDetail" rows="3" id="user-intro" placeholder="输入详细地址"></textarea>
                     <small>100字以内写出你的详细地址...</small>
                 </div>
             </div>
 
             <div class="am-form-group">
-                <label for="user-intro" class="am-form-label">是否设为默认地址：</label>
+                <label for="user-intro" class="am-form-label">默认地址</label>
                 <div class="am-form-content">
-                    <input type="radio" class="yes-default" value="是"/>是
-                    <input type="radio" class="no-default" value="否"/>否
+                    <input type="radio" class="txtStatus" value="是"/>是
+                    <input type="radio" class="txtStatus" value="否"/>否
                 </div>
             </div>
 
             <div class="am-form-group theme-poptit">
                 <div class="am-u-sm-9 am-u-sm-push-3">
-                    <div class="am-btn am-btn-danger">保存</div>
+                    <div class="am-btn am-btn-danger" id="keepData">保存</div>
                     <div class="am-btn am-btn-danger close">取消</div>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $("#keepData").click(function () {
+            var txtReceiptPerson=$(".txtReceiptPerson").val();
+            var txtReceiptPhone=$(".txtReceiptPhone").val();
+            var txtReceiptDetail=$(".txtReceiptDetail").val();
+            var provinceId=$("#province").val();
+            var cityId=$("#city").val();
+            var countId=$("#count").val();
+            var txtStatus=$(".txtStatus").val();
+            $.ajax({
+                url:"/insertReceipt",
+                type:"post",
+                data:{"person":txtReceiptPerson,"phone":txtReceiptPhone,
+                    "detail":txtReceiptDetail,"provinceId":provinceId,"cityId":cityId,
+                    "countId":countId,"status":txtStatus},
+                dataType:"json",
+                success:function (data) {
+                    if(data.data=='ok'){
+                        location.href="/pay";
+                    }
+                }
+            })
+        })
+
+        $("#province").click(function () {
+           $.ajax({
+               url:"/getProvince",
+               type:"post",
+               data:{parentId:"000000"},
+               dataType:"json",
+               success:function (data) {
+                   $("#city").html("");
+                   $("#count").html("");
+                   var html="";
+                   $.each(data,function (index,province) {
+                       html+="<option value='"+province.address_id+"'>"+province.address_name+"</option>";
+                   })
+                   $("#province").append(html);
+               }
+           })
+        });
+
+        $("#city").click(function () {
+            var parentId=$("#province").val();
+            $.ajax({
+                url:"/getCity",
+                type:"post",
+                data:{parentId:parentId},
+                dataType:"json",
+                success:function (data) {
+                    $("#count").html("");
+                    var html="";
+                    $.each(data,function (index,city) {
+                        html+="<option value='"+city.address_id+"'>"+city.address_name+"</option>";
+                    })
+                    $("#city").append(html);
+                }
+            })
+        });
+
+        $("#count").click(function () {
+            var parentId=$("#city").val();
+            $.ajax({
+                url:"/getCount",
+                type:"post",
+                data:{parentId:parentId},
+                dataType:"json",
+                success:function (data) {
+                    var html="";
+                    $.each(data,function (index,count) {
+                        html+="<option value='"+count.address_id+"'>"+count.address_name+"</option>";
+                    })
+                    $("#count").append(html);
+                }
+            })
+        });
+
+    })
+</script>
 
 <div class="clear"></div>
 </body>

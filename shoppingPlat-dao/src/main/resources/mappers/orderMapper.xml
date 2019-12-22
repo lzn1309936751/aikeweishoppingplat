@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.OrderDao">
+    <insert id="insert">
+        insert into person_order(order_time, order_amount, order_money,order_status,
+         pro_id, user_id) values (#{order_time},#{order_amount},#{order_money},
+         #{order_status},#{pro_id},#{user_id})
+    </insert>
+
+    <select id="getAll" resultType="com.entity.OrderEntity">
+        select o.order_id,p.pro_name,p.pro_discount,p.pro_iPrice,o.order_amount,
+        o.order_money,o.order_status,o.order_time from person_order o
+         join person_pro p on o.pro_id = p.pro_id
+          join person_img i on p.pro_id = i.pro_id
+           where o.user_id=#{uid}
+            order by o.order_id
+    </select>
+
+    <select id="getByStatus" resultType="com.entity.OrderEntity">
+        select o.order_id,p.pro_name,p.pro_discount,p.pro_iPrice,o.order_amount,
+        o.order_money,o.order_status,o.order_time from person_order o
+         join person_pro p on o.pro_id = p.pro_id
+          join person_img i on p.pro_id = i.pro_id
+           where o.order_status=#{status} and o.user_id=#{uid}
+            order by o.order_id
+    </select>
+</mapper>
