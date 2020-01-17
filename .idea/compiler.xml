@@ -6,10 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="shoppingPlat-controller" />
-        <module name="shoppingPlat-entity" />
-        <module name="shoppingPlat-dao" />
-        <module name="shoppingPlat-service" />
+        <module name="shoppingplat-controller" />
+        <module name="shoppingplat-service" />
+        <module name="shoppingplat-dao" />
+        <module name="shoppingplat-entity" />
       </profile>
     </annotationProcessing>
   </component>

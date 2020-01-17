@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dao.ImageDao">
-    <select id="getById" resultType="com.entity.ImageEntity">
-        select img_id,img_path from person_img where pro_id=#{pro_id}
-    </select>
-</mapper>
