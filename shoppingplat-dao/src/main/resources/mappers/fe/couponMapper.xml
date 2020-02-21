@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.fe.CouponDao">
+    <select id="getByMoney" resultType="com.entity.fe.CouponEntity">
+        select coupon_name from person_coupon
+        where 1=1
+        <if test="total>=88 and 168>total" >
+            and coupon_money = 88
+        </if>
+        <if test="total>=168 and 288>total">
+            and coupon_money = 168
+        </if>
+        <if test="total>=288 and 388>total">
+            and coupon_money = 288
+        </if>
+        <if test="total>=388 and 400>total">
+            and coupon_money = 388
+        </if>
+        <if test="total>=400 and 688>total">
+            and coupon_money = 400
+        </if>
+        <if test="total>=688 and 888>total">
+            and coupon_money = 688
+        </if>
+        <if test="total>=888 and 1088>total">
+            and coupon_money = 888
+        </if>
+        <if test="total>=1088">
+            and coupon_money = 1088
+        </if>
+    </select>
+
+
+</mapper>
