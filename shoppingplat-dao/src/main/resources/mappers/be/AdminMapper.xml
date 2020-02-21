@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.be.AdminDao">
+    <insert id="addUser">
+        insert into person_admin(admin_name, admin_pwd) values(#{username},#{password})
+    </insert>
+
+    <select id="findUser" resultType="com.entity.be.AdminEntity">
+        select admin_id, admin_name, admin_pwd from person_admin
+         where admin_id = #{admin_id}
+    </select>
+
+    <select id="getAll" resultType="com.entity.be.AdminEntity">
+        select a.admin_id,a.admin_name,a.admin_pwd,r.name from person_admin a
+         inner join user_role ur on a.admin_id = ur.admin_id
+          inner join role r on ur.role_id = r.id
+    </select>
+
+    <select id="getRoles" resultType="com.entity.be.RoleEntity">
+        select r.id,r.name,r.description from role r
+         join user_role ur on r.id = ur.role_id where ur.admin_id = #{adminId}
+    </select>
+
+    <select id="findUserByUsernameAndPassword" resultType="com.entity.be.AdminEntity">
+        select admin_id, admin_name, admin_pwd from person_admin
+         where admin_name = #{username} and admin_pwd = #{password}
+    </select>
+
+    <delete id="deleteRolesByUserId">
+        delete from user_role where admin_id = #{adminId}
+    </delete>
+
+    <insert id="insertUserRole">
+        insert into user_role (admin_id,role_id) values(#{adminId},#{roleId})
+    </insert>
+
+</mapper>
