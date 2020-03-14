@@ -6,7 +6,8 @@
     <select id="getAll" resultType="com.entity.fe.ProductEntity">
         select p.pro_id,p.pro_code,p.pro_name,p.pro_iPrice,p.pro_discount,
         p.pro_Desc,p.pro_allSaleNum,p.pro_num,pc.child_name from person_pro p
-         join person_child_cate pc on p.child_id = pc.child_id order by pro_id
+         join person_child_cate pc on p.child_id = pc.child_id
+          where p.deleted=0 order by pro_id
     </select>
 
 
@@ -37,6 +38,7 @@
         <result column="pro_num" property="pro_num"/>
         <result column="pro_Desc" property="pro_Desc"/>
         <result column="child_id" property="child_id"/>
+        <result column="deleted" property="deleted"/>
 
         <result column="info_id" property="information.info_id"/>
         <result column="info_code" property="information.info_code"/>
@@ -46,7 +48,6 @@
         <result column="product_time" property="information.product_time"/>
         <result column="keep_time" property="information.keep_time"/>
         <result column="delivery_address" property="information.delivery_address"/>
-
     </resultMap>
 
     <select id="getByMyId" resultMap="getByProductIdResultMap">
@@ -55,11 +56,7 @@
         f.factory_address,f.factory_phone,f.product_time,f.keep_time,
         f.delivery_address from person_pro p
          join person_information f on p.pro_id = f.pro_id
-         where p.pro_id = #{pro_id}
-    </select>
-
-    <select id="getMonthSale" resultType="com.entity.fe.ProductEntity">
-
+         where p.deleted=0 and p.pro_id = #{pro_id}
     </select>
 
     <update id="updateSaleNum">
@@ -68,8 +65,17 @@
 
     <insert id="insert">
         insert into person_pro(pro_name, pro_code, pro_num, pro_discount,
-         pro_iPrice, pro_Desc, child_id) values (#{pro_name},#{pro_code},
+         pro_iPrice, pro_Desc,child_id) values (#{pro_name},#{pro_code},
           #{pro_num},#{pro_discount},#{pro_iPrice},#{pro_Desc},#{child_id})
     </insert>
 
+    <update id="update">
+        update person_pro set pro_name=#{pro_name},pro_code=#{pro_code},
+        pro_num=#{pro_num},pro_discount=#{pro_discount},pro_iPrice=#{pro_price},
+        pro_Desc=#{pro_Desc},child_id=#{child_id} where pro_id=#{id}
+    </update>
+
+    <update id="delete">
+        update person_pro set deleted=1 where pro_id=#{id}
+    </update>
 </mapper>

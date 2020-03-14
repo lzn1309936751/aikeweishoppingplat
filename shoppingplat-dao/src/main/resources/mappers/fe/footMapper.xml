@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.fe.FootDao">
+    <insert id="insert">
+        insert into person_foot(foot_time, pro_id, user_id)
+        values (#{foot_time},#{pro_id},#{user_id})
+    </insert>
+
+    <resultMap id="getFootResultMap" type="com.entity.fe.FootEntity">
+        <id column="foot_id" property="foot_id"></id>
+        <result column="foot_time" property="foot_time"/>
+        <result column="pro_id" property="pro_id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="deleted" property="deleted"/>
+
+        <result column="pro_name" property="pro_name"/>
+        <result column="pro_discount" property="pro_discount"/>
+        <result column="pro_iPrice" property="pro_iPrice"/>
+        <result column="pro_Desc" property="pro_Desc"/>
+
+        <result column="img_path" property="img_path"/>
+    </resultMap>
+    <select id="getAll" resultMap="getFootResultMap">
+        select * from person_foot t
+        join person_pro p on t.pro_id = p.pro_id
+        join person_img i on p.pro_id=i.pro_id
+        where t.deleted=0 and t.user_id=#{user_id}
+    </select>
+
+    <update id="delete">
+        update person_foot set deleted=1 where user_id=#{userId} and pro_id=#{proId}
+    </update>
+</mapper>

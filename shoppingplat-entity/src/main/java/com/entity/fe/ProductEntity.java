@@ -23,6 +23,7 @@ public class ProductEntity {
     /**累计销售量*/
     Integer pro_allSaleNum;
     Integer child_id;
+    Integer deleted;
 
     String child_name;
 
@@ -61,12 +62,13 @@ public class ProductEntity {
                 pro_Desc.equals(that.pro_Desc) &&
                 pro_allSaleNum.equals(that.pro_allSaleNum) &&
                 child_id.equals(that.child_id) &&
+                deleted.equals(that.deleted) &&
                 child_name.equals(that.child_name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(pro_id, pro_name, pro_code, pro_num, pro_discount,
-                pro_iPrice, pro_Desc, pro_allSaleNum, child_id, child_name);
+                pro_iPrice, pro_Desc, pro_allSaleNum, child_id,deleted, child_name);
     }
 }

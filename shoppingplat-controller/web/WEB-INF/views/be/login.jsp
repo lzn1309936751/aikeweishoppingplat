@@ -36,7 +36,7 @@
 					<div class="third-party">
 						<!-- <a href="#" class="log-qq icon-qq-round"></a> -->
 					</div>
-					<p class="right">爱克威购物分享平台后台管理系统</p>
+					<p class="right">后台管理系统</p>
 				</div>
 			</div>
 		</div>

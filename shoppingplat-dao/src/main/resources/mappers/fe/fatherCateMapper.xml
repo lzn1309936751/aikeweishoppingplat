@@ -4,6 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.fe.FatherCateDao">
     <select id="getAll" resultType="com.entity.fe.FatherCateEntity">
-        select father_id,father_name from person_father_cate
+        select father_id,father_name from person_father_cate where deleted=0
     </select>
+
+    <insert id="insert">
+        insert into person_father_cate(father_name)
+         values (#{father_name})
+    </insert>
+
+    <update id="update">
+        update person_father_cate set father_name=#{name} where father_id=#{id}
+    </update>
+
+    <select id="getChildCateCount" resultType="integer">
+        select count(*) from person_child_cate where deleted=0 and father_id=#{cateId};
+    </select>
+    <update id="delete">
+        update person_father_cate set deleted=1 where father_id=#{cateId}
+    </update>
 </mapper>

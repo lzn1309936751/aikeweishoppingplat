@@ -108,26 +108,29 @@
 						<table class="table table-bordered table-hover">
 							<thead>
 							<tr>
-								<th>编号</th>
-								<th>商品货号</th>
-								<th>名字</th>
-								<th>价格</th>
-								<th>描述</th>
-								<th>商品类型</th>
+								<th>商品名称</th>
+								<th>生产许可证编号</th>
+								<th>厂名</th>
+								<th>厂址</th>
+								<th>厂家联系方式</th>
+								<th>生产日期</th>
+								<th>保质期</th>
+								<th>配送地区</th>
 								<th>操作</th>
 							</tr>
 							</thead>
 							<tbody>
-							<c:forEach items="${productList}" var="p">
+							<c:forEach items="${infoEntities}" var="info">
 								<tr>
-									<td>${p.pro_id }</td>
-									<td>${p.pro_code }</td>
-									<td>${p.pro_name }</td>
-									<td>${p.compute }</td>
-									<td>${p.pro_Desc }</td>
-									<td>${p.child_name }</td>
-									<td><a href="/admin/product/edit?pid=${p.pro_id }" class="btn btn-info">编辑</a>
-										<a href="/admin/product/delete?pid=${p.pro_id }" class="btn btn-danger" onclick="return confirm('确定要删除吗？')">删除</a></td>
+									<td>${info.pro_name }</td>
+									<td>${info.info_code }</td>
+									<td>${info.factory_name }</td>
+									<td>${info.factory_address }</td>
+									<td>${info.factory_phone }</td>
+									<td>${info.product_time }</td>
+									<td>${info.keep_time }</td>
+									<td>${info.delivery_address }</td>
+									<td><a href="/admin/productInfo/edit?pid=${info.info_id}" class="btn btn-info">编辑</a></td>
 								</tr>
 							</c:forEach>
 							</tbody>
@@ -141,7 +144,6 @@
 							</ul>
 							</tfoot>
 						</table>
-						<a href="/admin/product/add" class="btn btn-info add">新增</a>
 					</div>
 				</div>
 			</section>

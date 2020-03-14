@@ -15,7 +15,7 @@
 <body>
 <section id="container" class="">
     <header class="header white-bg">
-        <a href="#" class="logo">爱克威 <span>后台管理系统</span></a>
+        <a href="#" class="logo"><span>后台管理</span></a>
     </header>
 
     <div id="sidebar" class="nav-collapse">
@@ -34,10 +34,10 @@
                         <a href="/admin/product/list">商品信息</a>
                     </li>
                     <li class="conceal">
-                        <a href="/admin/product/insert">添加商品</a>
+                        <a href="/admin/productInfo/list">商品详情</a>
                     </li>
                     <li class="conceal">
-                        <a href="/admin/product/update">修改商品</a>
+                        <a href="/admin/coupon/list">优惠劵</a>
                     </li>
                 </ul>
             </li>
@@ -101,7 +101,7 @@
 </section>
 <section id="main-content">
     <section class="wrapper">
-        <h3>欢迎使用爱克威购物分享平台后台管理系统！</h3>
+        <h3>欢迎使用系统后台管理！</h3>
     </section>
 </section>
 <input type="hidden" id="userId" value="${admin.admin_id}">

@@ -11,10 +11,12 @@ import java.util.List;
 public interface ReceiptDao {
     void insert(ReceiptEntity receiptEntity);
 
-    void update(@Param("status") int status,@Param("id") int id);
+    void update(@Param("receipt") ReceiptEntity receiptEntity,@Param("id") int id);
 
     List<ReceiptEntity> getAll(@Param("uid") int id);
 
     ReceiptEntity getById(@Param("rid") int rid,@Param("uid") int uid);
+
+    void delete(@Param("rid") int rid,@Param("uid") int uid);
 
 }

@@ -14,7 +14,7 @@
         o.order_money,o.order_status,o.order_time from person_order o
          join person_pro p on o.pro_id = p.pro_id
           join person_img i on p.pro_id = i.pro_id
-           where o.user_id=#{uid}
+           where o.deleted=0 and o.user_id=#{uid}
             order by o.order_id
     </select>
 
@@ -23,7 +23,7 @@
         o.order_money,o.order_status,o.order_time from person_order o
          join person_pro p on o.pro_id = p.pro_id
           join person_img i on p.pro_id = i.pro_id
-           where o.order_status=#{order_status} and o.user_id=#{uid}
+           where o.deleted=0 and o.order_status=#{order_status} and o.user_id=#{uid}
             order by o.order_id
     </select>
 
@@ -32,11 +32,12 @@
         o.order_money,o.order_status,o.order_time from person_order o
          join person_pro p on o.pro_id = p.pro_id
           join person_img i on p.pro_id = i.pro_id
-           where o.order_status=#{order_status} and o.apprise_status=#{apprise_status}
-            and o.user_id=#{uid} order by o.order_id
+           where o.deleted=0 and o.order_status=#{order_status}
+            and o.apprise_status=#{apprise_status} and o.user_id=#{uid}
+             order by o.order_id
     </select>
 
-    <delete id="deleteByAid">
-        delete from person_order where apprise_status=0 and pid=#{pid} and uid=#{uid}
-    </delete>
+    <update id="delete">
+        update person_order set deleted=1 where user_id=#{userId} and pro_id=#{proId}
+    </update>
 </mapper>

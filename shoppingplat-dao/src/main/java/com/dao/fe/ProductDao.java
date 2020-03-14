@@ -17,11 +17,12 @@ public interface ProductDao {
     /**获得单个商品的所有信息*/
     ProductEntity getByMyId(int pro_id);
 
-    /**获得最高的月销售量的商品信息*/
-    ProductEntity getMonthSale();
-
     /**根据订单使累计销量加一*/
     ProductEntity updateSaleNum(int saleNum,int id);
 
     ProductEntity insert(ProductEntity products);
+
+    ProductEntity update(ProductEntity products,@Param("id") Integer id);
+
+    void delete(Integer id);
 }

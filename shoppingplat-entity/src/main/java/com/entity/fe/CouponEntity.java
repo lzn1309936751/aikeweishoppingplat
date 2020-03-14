@@ -10,4 +10,5 @@ public class CouponEntity {
     Integer coupon_id;
     Integer coupon_name;
     Integer coupon_money;
+    Integer deleted;
 }

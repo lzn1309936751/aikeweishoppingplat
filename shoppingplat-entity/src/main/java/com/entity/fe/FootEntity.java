@@ -10,11 +10,9 @@ import java.util.Objects;
  * @author lzn
  */
 @Data
-public class CartEntity {
-    Integer cart_id;
-    Date cart_time;
-    Integer cart_num;
-    BigDecimal cart_subTotal;
+public class FootEntity {
+    Integer foot_id;
+    Date foot_time;
     Integer pro_id;
     Integer user_id;
     Integer deleted;
@@ -34,27 +32,17 @@ public class CartEntity {
         return result1;
     }
 
-    public Double getSave(){
-        Double price=pro_iPrice.doubleValue();
-        Double result=(1-pro_discount)*price;
-        BigDecimal bg=new BigDecimal(result);
-        double result2=bg.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
-        return result2;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CartEntity)) {
+        if (!(o instanceof FootEntity)) {
             return false;
         }
-        CartEntity that = (CartEntity) o;
-        return cart_id.equals(that.cart_id) &&
-                cart_time.equals(that.cart_time) &&
-                cart_num.equals(that.cart_num) &&
-                cart_subTotal.equals(that.cart_subTotal) &&
+        FootEntity that = (FootEntity) o;
+        return foot_id.equals(that.foot_id) &&
+                foot_time.equals(that.foot_time) &&
                 pro_id.equals(that.pro_id) &&
                 user_id.equals(that.user_id) &&
                 deleted.equals(that.deleted) &&
@@ -66,7 +54,7 @@ public class CartEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(cart_id, cart_time, cart_num, cart_subTotal,
-                pro_id, user_id,deleted, pro_name, pro_discount, pro_iPrice, pro_Desc);
+        return Objects.hash(foot_id, foot_time,pro_id, user_id,deleted,
+                pro_name, pro_discount, pro_iPrice, pro_Desc);
     }
 }

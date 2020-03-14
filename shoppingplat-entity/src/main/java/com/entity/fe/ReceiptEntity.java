@@ -16,4 +16,5 @@ public class ReceiptEntity {
     String receipt_detail;
     Integer receipt_bit;
     Integer user_id;
+    Integer deleted;
 }

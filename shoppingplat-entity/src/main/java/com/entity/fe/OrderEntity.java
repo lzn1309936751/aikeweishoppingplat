@@ -19,6 +19,7 @@ public class OrderEntity {
     Integer apprise_status;
     Integer pro_id;
     Integer user_id;
+    Integer deleted;
 
     String pro_name;
     Double pro_discount;
@@ -59,6 +60,7 @@ public class OrderEntity {
                 apprise_status.equals(that.apprise_status) &&
                 pro_id.equals(that.pro_id) &&
                 user_id.equals(that.user_id) &&
+                deleted.equals(that.deleted) &&
                 pro_name.equals(that.pro_name) &&
                 pro_discount.equals(that.pro_discount) &&
                 pro_iPrice.equals(that.pro_iPrice);
@@ -67,7 +69,7 @@ public class OrderEntity {
     @Override
     public int hashCode() {
         return Objects.hash(order_id, order_time, order_amount,
-                order_money, order_status,apprise_status, pro_id, user_id, pro_name,
-                pro_discount, pro_iPrice);
+                order_money, order_status,apprise_status, pro_id, user_id,
+                deleted,pro_name,pro_discount, pro_iPrice);
     }
 }

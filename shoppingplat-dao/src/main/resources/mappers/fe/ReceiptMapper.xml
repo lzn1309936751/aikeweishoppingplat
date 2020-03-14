@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.fe.ReceiptDao">
     <insert id="insert">
-        insert into person_receipt(receipt_name, receipt_phone, province_id, city_id,
-         county_id,receipt_detail ,receipt_bit,user_id)
+        insert into person_receipt(receipt_name, receipt_phone, province_id,
+         city_id, county_id, receipt_detail, receipt_bit, user_id)
           values(#{receipt_name},#{receipt_phone},#{province_id},#{city_id},
           #{county_id},#{receipt_detail},#{receipt_bit},#{user_id})
     </insert>
@@ -17,12 +17,17 @@
     <select id="getAll" resultType="com.entity.fe.ReceiptEntity">
         select receipt_id,receipt_name, receipt_phone, province_id, city_id,
        county_id, receipt_detail, receipt_bit from person_receipt
-        where user_id=#{uid}
+        where deleted=0 and user_id=#{uid}
     </select>
 
     <select id="getById" resultType="com.entity.fe.ReceiptEntity">
         select receipt_id,receipt_name, receipt_phone, province_id, city_id,
        county_id, receipt_detail, receipt_bit from person_receipt
-        where receipt_id=#{rid} and user_id=#{uid}
+        where deleted=0 and receipt_id=#{rid} and user_id=#{uid}
     </select>
+
+    <update id="delete">
+        update person_receipt set deleted=1
+         where receipt_id=#{rid} and user_id=#{uid}
+    </update>
 </mapper>

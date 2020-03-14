@@ -15,6 +15,7 @@
         <result column="cart_subTotal" property="cart_subTotal"/>
         <result column="pro_id" property="pro_id"/>
         <result column="user_id" property="user_id"/>
+        <result column="deleted" property="deleted"/>
 
         <result column="pro_name" property="pro_name"/>
         <result column="pro_discount" property="pro_discount"/>
@@ -27,21 +28,25 @@
         select * from person_cart c
         join person_pro p on c.pro_id = p.pro_id
         join person_img i on p.pro_id=i.pro_id
-        where c.user_id=#{user_id}
+        where c.deleted=0 and c.user_id=#{user_id}
     </select>
 
     <select id="getCartPrice" resultMap="getCartResultMap">
     select * from person_cart c
             join person_pro p on c.pro_id = p.pro_id
-            where p.pro_id=#{pro_id} and c.user_id=#{user_id}
+            where c.deleted=0 and p.pro_id=#{pro_id} and c.user_id=#{user_id}
     </select>
     <update id="update">
-        update person_cart set cart_num=#{num},cart_subTotal=#{subTotal}  where pro_id=#{pro_id} and user_id=#{user_id}
+        update person_cart set cart_num=#{num},cart_subTotal=#{subTotal}
+         where pro_id=#{pro_id} and user_id=#{user_id}
     </update>
-
 
     <select id="recordCartCount" resultType="com.entity.fe.CartEntity">
         select count(*) from person_cart where user_id=#{user_id}
     </select>
+
+    <update id="delete">
+        update person_cart set deleted =1 where user_id=#{userId} and cart_id=#{id}
+    </update>
 
 </mapper>

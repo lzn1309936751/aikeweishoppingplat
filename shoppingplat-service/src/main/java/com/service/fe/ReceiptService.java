@@ -19,8 +19,8 @@ public class ReceiptService {
          dao.insert(receiptEntity);
     }
 
-    public void update(int status, int id) {
-        dao.update(status,id);
+    public void update(ReceiptEntity receiptEntity, int id) {
+        dao.update(receiptEntity,id);
     }
 
     public List<ReceiptEntity> getAll(int id){

@@ -26,4 +26,8 @@ public class InformationEntity {
     String delivery_address;
 
     Integer pro_id;
+
+    String pro_name;
+
+    Integer deleted;
 }

@@ -5,7 +5,7 @@
 <mapper namespace="com.dao.fe.CouponDao">
     <select id="getByMoney" resultType="com.entity.fe.CouponEntity">
         select coupon_name from person_coupon
-        where 1=1
+        where deleted=0
         <if test="total>=88 and 168>total" >
             and coupon_money = 88
         </if>
@@ -32,5 +32,21 @@
         </if>
     </select>
 
+    <select id="getAll" resultType="com.entity.fe.CouponEntity">
+        select coupon_id, coupon_name, coupon_money from person_coupon where deleted=0
+    </select>
+
+    <insert id="insert">
+        insert into person_coupon(coupon_name, coupon_money) values (#{name},#{money})
+    </insert>
+
+    <update id="update">
+        update person_coupon set coupon_name=#{name},coupon_money=#{money}
+         where coupon_id=#{id}
+    </update>
+
+    <update id="delete">
+        update person_coupon set deleted=1 where coupon_id=#{id}
+    </update>
 
 </mapper>

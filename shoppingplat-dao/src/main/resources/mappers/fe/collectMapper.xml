@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.fe.CollectDao">
+    <insert id="insert">
+        insert into person_collect(collect_time, pro_id, user_id)
+        values (#{collect_time},#{pro_id},#{user_id})
+    </insert>
+
+    <resultMap id="getCollectResultMap" type="com.entity.fe.CollectEntity">
+        <id column="collect_id" property="collect_id"></id>
+        <result column="collect_time" property="collect_time"/>
+        <result column="pro_id" property="pro_id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="deleted" property="deleted"/>
+
+        <result column="pro_name" property="pro_name"/>
+        <result column="pro_discount" property="pro_discount"/>
+        <result column="pro_iPrice" property="pro_iPrice"/>
+        <result column="pro_Desc" property="pro_Desc"/>
+
+        <result column="img_path" property="img_path"/>
+    </resultMap>
+    <select id="getAll" resultMap="getCollectResultMap">
+        select * from person_collect c
+        join person_pro p on c.pro_id = p.pro_id
+        join person_img i on p.pro_id=i.pro_id
+        where c.deleted=0 and c.user_id=#{user_id}
+    </select>
+
+    <update id="delete">
+        update person_collect set deleted=1 where user_id=#{userId} and pro_id=#{proId}
+    </update>
+</mapper>

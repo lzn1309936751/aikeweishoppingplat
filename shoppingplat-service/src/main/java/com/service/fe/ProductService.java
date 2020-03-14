@@ -37,5 +37,12 @@ public class ProductService{
         return imageDao.getById(pro_id);
     }
 
+    public ProductEntity insert(ProductEntity productEntity){
+        return productDao.insert(productEntity);
+    }
+
+    public ProductEntity update(ProductEntity productEntity,Integer pid){
+        return productDao.update(productEntity,pid);
+    }
 
 }

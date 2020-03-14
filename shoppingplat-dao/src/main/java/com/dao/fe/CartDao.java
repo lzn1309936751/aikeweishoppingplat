@@ -19,4 +19,6 @@ public interface CartDao {
 
     Integer recordCartCount(int user_id);
 
+    void delete(@Param("userId") Integer userId,@Param("proId") Integer proId);
+
 }

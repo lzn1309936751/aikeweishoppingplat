@@ -9,4 +9,5 @@ import lombok.Data;
 public class FatherCateEntity {
     Integer father_id;
     String father_name;
+    Integer deleted;
 }

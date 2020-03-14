@@ -26,5 +26,5 @@ public interface OrderDao {
                                        @Param("apprise_status") int apprise_status,
                                        @Param("uid") int uid);
 
-    void deleteByAid(@Param("pid") int pid, @Param("uid") int uid);
+    void delete(@Param("proId") int proId, @Param("userId") int userId);
 }

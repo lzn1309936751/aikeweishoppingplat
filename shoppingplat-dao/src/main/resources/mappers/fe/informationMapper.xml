@@ -6,6 +6,40 @@
     <select id="getById" resultType="com.entity.fe.InformationEntity">
         select info_id,info_code,factory_name,factory_address,factory_phone,
         product_time,keep_time,delivery_address from person_information
-        where pro_id=#{pro_id}
+        where deleted=0 and pro_id=#{pro_id}
     </select>
+
+    <resultMap id="getProNameResultMap" type="com.entity.fe.InformationEntity">
+        <id column="info_id" property="info_id"></id>
+        <result column="factory_name" property="factory_name"/>
+        <result column="factory_address" property="factory_address"/>
+        <result column="factory_phone" property="factory_phone"/>
+        <result column="product_time" property="product_time"/>
+        <result column="keep_time" property="keep_time"/>
+        <result column="delivery_address" property="delivery_address"/>
+        <result column="deleted" property="deleted"/>
+        <result column="pro_id" property="pro_id"/>
+
+        <result column="pro_name" property="pro_name"/>
+    </resultMap>
+    <select id="getAll" resultMap="getProNameResultMap">
+        select i.info_id,i.info_code,i.factory_name,i.factory_address,i.factory_phone,
+        i.product_time,i.keep_time,i.delivery_address,p.pro_name from person_information i
+         join person_pro p on i.pro_id=p.pro_id where i.deleted=0 order by i.info_id
+    </select>
+
+    <update id="update">
+        update person_information set info_code=#{info_code},factory_name=#{factory_name},
+        factory_address=#{factory_address},factory_phone=#{factory_phone},
+        product_time=#{product_time},keep_time=#{keep_time},
+        delivery_address=#{delivery_address} where info_id=#{info_id}
+    </update>
+
+    <insert id="insert">
+        insert into person_information(info_code, factory_name, factory_address,
+         factory_phone, product_time, keep_time, delivery_address, pro_id)
+          values (#{info_code},#{factory_name},#{factory_address},#{factory_phone},
+          #{product_time},#{keep_time},#{delivery_address},#{pro_id})
+    </insert>
+
 </mapper>

@@ -109,39 +109,24 @@
 							<thead>
 							<tr>
 								<th>编号</th>
-								<th>商品货号</th>
-								<th>名字</th>
-								<th>价格</th>
-								<th>描述</th>
-								<th>商品类型</th>
+								<th>优惠劵</th>
 								<th>操作</th>
 							</tr>
 							</thead>
 							<tbody>
-							<c:forEach items="${productList}" var="p">
+							<c:forEach items="${couponList}" var="c">
 								<tr>
-									<td>${p.pro_id }</td>
-									<td>${p.pro_code }</td>
-									<td>${p.pro_name }</td>
-									<td>${p.compute }</td>
-									<td>${p.pro_Desc }</td>
-									<td>${p.child_name }</td>
-									<td><a href="/admin/product/edit?pid=${p.pro_id }" class="btn btn-info">编辑</a>
-										<a href="/admin/product/delete?pid=${p.pro_id }" class="btn btn-danger" onclick="return confirm('确定要删除吗？')">删除</a></td>
+									<td>${c.coupon_id }</td>
+									<td><b>满</b>${c.coupon_money }<b>减</b>${c.coupon_name}</td>
+									<td><a href="/admin/coupon/edit?cid=${c.coupon_id}" class="btn btn-info">编辑</a>
+										<a href="/admin/coupon/delete?cid=${c.coupon_id}" class="btn btn-info">删除</a></td>
 								</tr>
 							</c:forEach>
 							</tbody>
-							<tfoot>
-							<ul class="am-pagination am-pagination-right">
-								<li class="am-disabled"><a href="/products?pageNum=${pageInfo.prePage}">&laquo;</a></li>
-								<c:forEach items="${pageInfo.navigatepageNums}" var="page">
-									<li><a href="/products?pageNum=${page}"> ${page}</a></li>
-								</c:forEach>
-								<li><a href="/products?pageNum=${pageInfo.nextPage}">&raquo;</a></li>
-							</ul>
-							</tfoot>
+
+							<a href="/admin/coupon/add" class="btn btn-info add">新增</a>
+
 						</table>
-						<a href="/admin/product/add" class="btn btn-info add">新增</a>
 					</div>
 				</div>
 			</section>

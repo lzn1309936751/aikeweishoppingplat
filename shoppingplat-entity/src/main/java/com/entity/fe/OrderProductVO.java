@@ -1,6 +1,7 @@
 package com.entity.fe;
 
 import com.entity.fe.OrderEntity;
+import lombok.Data;
 
 import java.util.List;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
 /**
  * @author lzn
  */
+@Data
 public class OrderProductVO {
     private List<OrderEntity> orders;
     private Set<OrderEntity> set;

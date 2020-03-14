@@ -105,43 +105,43 @@
 			<section class="wrapper">
 					<div class="col-md-6 column">
 						<h3 class="text-center">
-							添加商品信息
+							修改商品信息
 						</h3>
 					</div>
 					<div class="form-group">
 						<label for="pname" class="col-sm-6 control-label">商品名称</label>
 						<div class="col-md-pull-5 col-sm-6">
-							<input type="text" multiple="multiple" name="pname" id="pname" class="form-control"/>
+							<input type="text" multiple="multiple" name="pname" id="pname" class="form-control" value="${products.pro_name}"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="pcode" class="col-sm-6 control-label">商品货号</label>
 						<div class="col-md-pull-5 col-sm-6">
-							<input type="text"  multiple="multiple" name="pcode" id="pcode" class="form-control"/>
+							<input type="text"  multiple="multiple" name="pcode" id="pcode" class="form-control" value="${products.pro_code}" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="pnum" class="col-sm-6 control-label">商品数量</label>
 						<div class="col-md-pull-5 col-sm-6">
-							<input type="text"  multiple="multiple" name="pnum" id="pnum" class="form-control"/>
+							<input type="text"  multiple="multiple" name="pnum" id="pnum" class="form-control" value="${products.pro_num}" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="pdiscount" class="col-sm-6 control-label">商品折扣</label>
 						<div class="col-md-pull-5 col-sm-6">
-							<input type="text"  multiple="multiple" name="pdiscount" id="pdiscount" class="form-control"/>
+							<input type="text"  multiple="multiple" name="pdiscount" id="pdiscount" class="form-control" value="${products.pro_discount}" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="price" class="col-sm-6 control-label">商品价格</label>
 						<div class="col-md-pull-5 col-sm-6">
-							<input type="text"  multiple="multiple" name="price" id="price" class="form-control"/>
+							<input type="text"  multiple="multiple" name="price" id="price" class="form-control" value="${products.pro_iPrice}" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="pdesc" class="col-sm-6 control-label">商品描述</label>
 						<div class="col-md-pull-5 col-sm-6">
-							<input type="text"  multiple="multiple" name="pdesc" id="pdesc" class="form-control"/>
+							<input type="text"  multiple="multiple" name="pdesc" id="pdesc" class="form-control" value="${products.pro_Desc}" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -149,14 +149,21 @@
 						<div class="col-md-pull-5 col-sm-6">
 							<select class="form-control" id="cid" name="cid">
 								<c:forEach items="${childCateList}" var="c" >
-									<option id="child_id"  value="${c.child_id}">${c.child_name}</option>
+									<c:choose>
+										<c:when test="${c.child_id == products.child_id}">
+											<option class="child_id"  value="${products.child_id}">${products.child_name}</option>
+										</c:when>
+										<c:otherwise>
+											<option class="child_id"  value="${c.child_id}">${c.child_name}</option>
+										</c:otherwise>
+									</c:choose>
 								</c:forEach>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-1 col-sm-6">
-							<button type="button" id="btnInsert" class="btn btn-default">保存</button>
+							<button type="button" id="btnUpdate" class="btn btn-default">保存</button>
 							<button type="button" id="btnEsc" class="btn btn-default">取消</button>
 						</div>
 					</div>
@@ -165,21 +172,20 @@
 
 		<script>
 			$(function () {
-				$("#btnInsert").click(function(){
+				$("#btnUpdate").click(function(){
 				    var pname=$("#pname").val();
 				    var pcode=$("#pcode").val();
 					var pnum=$("#pnum").val();
 					var pdiscount=$("#pdiscount").val();
 					var price=$("#price").val();
 					var pdesc=$("#pdesc").val();
-					var child_id=$("#child_id").val();
+					var child_id=$(".child_id").val();
 
 					$.ajax({
-						url:"/admin/product/insert",
+						url:"/admin/product/update",
 						method:"post",
-						data:{pro_name:pname,pro_code:pcode,pro_num:pnum,
-                            pro_discount:pdiscount,pro_iPrice:price,
-							pro_Desc:pdesc,child_id:child_id},
+						data:{pro_name:pname,pro_code:pcode,pro_num:pnum,pro_discount:pdiscount,
+							pro_iPrice:price, pro_Desc:pdesc,child_id:child_id},
 						dataType:"json"
 					}).done(function (data) {
 
