@@ -32,7 +32,7 @@ public class OrderService {
         return dao.getByAppriseStatus(pageNum,pageSize,order_status,apprise_status,uid);
     }
 
-    public void deleteByAid(int pid,int uid){
-        dao.deleteByAid(pid,uid);
-    }
+//    public void deleteByAid(int pid,int uid){
+//        dao.deleteByAid(pid,uid);
+//    }
 }

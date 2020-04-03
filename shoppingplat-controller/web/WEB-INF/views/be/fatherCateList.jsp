@@ -12,7 +12,7 @@
 		<link href="/static/css/bootstrap.min.css" rel="stylesheet">
 		<link href="/static/css/bestyle.css" rel="stylesheet">
 		<script src="/static/js/jquery-3.3.1.min.js"></script>
-		
+
 	</head>
 	<body>
 		<section id="container" class="">
@@ -106,48 +106,105 @@
 				<div>
 					<div class="jumbotron">
 						<table class="table table-bordered table-hover">
-							<thead>
 							<tr>
-								<th>商品名称</th>
-								<th>生产许可证编号</th>
-								<th>厂名</th>
-								<th>厂址</th>
-								<th>厂家联系方式</th>
-								<th>生产日期</th>
-								<th>保质期</th>
-								<th>配送地区</th>
+								<th>编号</th>
+								<th>类型</th>
 								<th>操作</th>
+								<th>详情</th>
 							</tr>
-							</thead>
-							<tbody>
-							<c:forEach items="${infoEntities}" var="info">
-								<tr>
-									<td>${info.pro_name }</td>
-									<td>${info.info_code }</td>
-									<td>${info.factory_name }</td>
-									<td>${info.factory_address }</td>
-									<td>${info.factory_phone }</td>
-									<td>${info.product_time }</td>
-									<td>${info.keep_time }</td>
-									<td>${info.delivery_address }</td>
-									<td><a href="/admin/productInfo/edit?pid=${info.info_id}" class="btn btn-info">编辑</a></td>
-								</tr>
+							<c:forEach items="${fatherCate}" var="f">
+							<tr>
+								<td class="fatherId">${f.father_id}</td>
+								<td>${f.father_name}</td>
+								<td>
+									<a href="/admin/father/edit?fid=${f.father_id}" class="btn btn-info">编辑</a>
+									<a href="/admin/father/delete?fid=${f.father_id}" class="btn btn-danger" onclick="return confirm('确定要删除吗？')">删除</a>
+								</td>
+								<td><input type="button" class="btnLook" name="btnLook" value="点击查看" /></td>
+							</tr>
 							</c:forEach>
-							</tbody>
-							<tfoot>
-							<ul class="am-pagination am-pagination-right">
-								<li class="am-disabled"><a href="/products?pageNum=${pageInfo.prePage}">&laquo;</a></li>
-								<c:forEach items="${pageInfo.navigatepageNums}" var="page">
-									<li><a href="/products?pageNum=${page}"> ${page}</a></li>
-								</c:forEach>
-								<li><a href="/products?pageNum=${pageInfo.nextPage}">&raquo;</a></li>
-							</ul>
-							</tfoot>
 						</table>
+						<a href="/admin/father/add" class="btn btn-info add">新增</a>
+					</div>
+					<div>
+						<div class="jumbotron showAllChild">
+
+
+						</div>
 					</div>
 				</div>
 			</section>
 		</section>
+
+		<script>
+			$(function () {
+				//获得选中的子类型
+				$(".btnLook").click(function () {
+					alert(0)
+					var id=$(".fatherId").val();
+					$.ajax({
+						url:"/admin/child/list",
+						method:"post",
+						data:{fatherId:id},
+						dataType:"json",
+						success:function(data){
+							alert(1)
+							$(".showAllChild").html("");
+							var html="";
+							html+="<table class='table table-bordered table-hover'>";
+							html+="<tr><th>编号</th><th>类型</th><th>操作</th></tr>";
+							html+="<c:forEach items='${data.date}' var='c'>";
+							html+="<tr><td>${c.child_id}</td>";
+							html+="<td>${c.child_name}</td><td>";
+							html+="<a href='/admin/child/edit?cid=${c.child_id} class='btn btn-info'>编辑</a>";
+							html+="<a href='/admin/child/delete?cid=${c.child_id} class='btn btn-danger' onclick='return confirm('确定要删除吗？')'>删除</a>";
+							html+="</td></tr>";
+							html+="</c:forEach></table>";
+							$(".showAllChild").append(html);
+						}
+					})
+				});
+			})
+		</script>
+
+<%--		<section id="main-content">--%>
+<%--			<section class="wrapper">--%>
+<%--				<div>--%>
+<%--					<div class="jumbotron">--%>
+<%--						<table class="table table-bordered table-hover">--%>
+<%--							<thead>--%>
+<%--							<tr>--%>
+<%--								<th>编号</th>--%>
+<%--								<th>类型</th>--%>
+<%--								<th>详情</th>--%>
+<%--								<th>操作</th>--%>
+<%--							</tr>--%>
+<%--							</thead>--%>
+<%--							<tbody>--%>
+<%--							<c:forEach items="${productList}" var="p">--%>
+<%--								<tr>--%>
+<%--									<td>${p.pro_id }</td>--%>
+<%--									<td>${p.pro_code }</td>--%>
+<%--									<td><a href="/admin/product/edit?pid=${p.pro_id }" class="btn btn-info">编辑</a>--%>
+<%--										<a href="/admin/product/delete?pid=${p.pro_id }" class="btn btn-danger" onclick="return confirm('确定要删除吗？')">删除</a></td>--%>
+<%--								</tr>--%>
+<%--							</c:forEach>--%>
+<%--							</tbody>--%>
+<%--							<tfoot>--%>
+<%--							<ul class="am-pagination am-pagination-right">--%>
+<%--								<li class="am-disabled"><a href="/products?pageNum=${pageInfo.prePage}">&laquo;</a></li>--%>
+<%--								<c:forEach items="${pageInfo.navigatepageNums}" var="page">--%>
+<%--									<li><a href="/products?pageNum=${page}"> ${page}</a></li>--%>
+<%--								</c:forEach>--%>
+<%--								<li><a href="/products?pageNum=${pageInfo.nextPage}">&raquo;</a></li>--%>
+<%--							</ul>--%>
+<%--							</tfoot>--%>
+<%--						</table>--%>
+<%--						<a href="/admin/product/add" class="btn btn-info add">新增</a>--%>
+<%--					</div>--%>
+<%--				</div>--%>
+<%--			</section>--%>
+<%--		</section>--%>
 		<input type="hidden" id="userId" value="${admin.admin_id}">
 		<script src="/static/js/bootstrap.min.js"></script>
 		<script src="/static/js/common-scripts.js"></script>

@@ -43,7 +43,7 @@ public class CommentListController {
         apprise.setPro_id(pro_id);
         apprise.setUser_id(users.getUser_id());
         appriseService.insert(apprise);
-        orderService.deleteByAid(pro_id,users.getUser_id());
+//        orderService.deleteByAid(pro_id,users.getUser_id());
 
         return requestVo;
     }

@@ -49,10 +49,10 @@
 						</a>
 						<ul class="sub">
 							<li class=" conceal">
-								<a href="/admin/father_cate/list">一级分类信息</a>
+								<a href="/admin/father/list">一级分类信息</a>
 							</li>
 							<li class="conceal">
-								<a class="" href="/admin/child_cate/add">二级分类信息</a>
+								<a class="" href="/admin/child/add">二级分类信息</a>
 							</li>
 						</ul>
 					</li>
