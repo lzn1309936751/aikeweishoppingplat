@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -21,11 +22,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     private PrivilegeInterceptor privilegeInterceptor;
-
-//    @Override
-//    public void configureViewResolvers(ViewResolverRegistry registry) {
-//        registry.jsp("/WEB-INF/views/", ".jsp");
-//    }
 
     @Bean
     public InternalResourceViewResolver viewResolver(){
@@ -55,5 +51,11 @@ public class MvcConfig implements WebMvcConfigurer {
         ResourceHandlerRegistration handlerRegistration=
                 registry.addResourceHandler("/static/**");
         handlerRegistration.addResourceLocations("classpath:/static/");
+    }
+
+    @Bean(name = "multipartResolver")
+    public StandardServletMultipartResolver standardServletMultipartResolver(){
+        StandardServletMultipartResolver standardServletMultipartResolver = new StandardServletMultipartResolver();
+        return standardServletMultipartResolver;
     }
 }

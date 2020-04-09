@@ -6,4 +6,12 @@
     <select id="getById" resultType="com.entity.fe.ImageEntity">
         select img_id,img_path from person_img where pro_id=#{pro_id}
     </select>
+
+    <select id="getAll" resultType="com.entity.fe.ImageEntity">
+        select img_id,img_path from person_img order by img_id
+    </select>
+
+    <insert id="insertImg">
+        insert into person_img(img_path, pro_id) values (#{img_path},#{pro_id});
+    </insert>
 </mapper>
