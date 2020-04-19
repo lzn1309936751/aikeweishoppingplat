@@ -51,7 +51,7 @@
 								<a href="/admin/father/list">一级分类信息</a>
 							</li>
 							<li class="conceal">
-								<a class="" href="/admin/child/add">二级分类信息</a>
+								<a class="" href="/admin/childc/add">二级分类信息</a>
 							</li>
 						</ul>
 					</li>
